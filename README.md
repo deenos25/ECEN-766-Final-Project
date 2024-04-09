@@ -14,6 +14,6 @@
 * Expect more "extracted_data_W#.pkl" with varying window sizes
 * Features in Dataframe: 'real_acid', 'variant_acid', 'position', 'esm1b_score', 'seq_arr', 'pred_2nd_struct_arr', 'variant_loc_LLR_arr', 'seq_LLR_arr'
 * Labels in Dataframe: 'label' includes benign, likely benign, likely pathogenic, & pathogenic
-* Link to "extracted_data_W#.pkl" files: https://esp-space.slack.com/archives/C06N86BMZ19/p1712680031317899?thread_ts=1712679838.526999&cid=C06N86BMZ19
+* Link to "extracted_data_W#.pkl" files: https://zenodo.org/records/10950471?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImE5NDhhNzhkLWZlYjktNDE0Ny04MzM3LTQ1NTk1MWI5MjczMCIsImRhdGEiOnt9LCJyYW5kb20iOiI0NmY5NDBhMWZmMDljODZlZjNmM2QzODNkZGYwZmJiOSJ9.tGvUnkbg4jozzmxGPzX8OvbfM7z5G_7YGWFR6ocFsMq9x2k4hnYRoHy7WeVMxXoWYQtRM5olxTckd1r2ftaqbw
 * Variant data is from ClinVar data downloaded from (https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz)
 

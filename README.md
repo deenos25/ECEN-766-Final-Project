@@ -15,6 +15,6 @@
 * extracted_data_W#.pkl or extracted_data_W#_v2.pkl (Contains dataframe of features & labels, W# = Window size of extracted amino acid sequence around variant)
 * Features in Dataframes: 'real_acid', 'variant_acid', 'esm1b_score', 'seq_arr', 'pred_2nd_struct_arr', ['pred_2nd_struct_arr_wt', 'pred_2nd_struct_arr_v'...(In _v2 files)], 'variant_loc_LLR_arr', 'seq_LLR_arr'
 * Labels in Dataframe: 'label' includes benign & pathogenic
-* Link to "extracted_data_W#.pkl" files: https://zenodo.org/records/10950471?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImE5NDhhNzhkLWZlYjktNDE0Ny04MzM3LTQ1NTk1MWI5MjczMCIsImRhdGEiOnt9LCJyYW5kb20iOiI0NmY5NDBhMWZmMDljODZlZjNmM2QzODNkZGYwZmJiOSJ9.tGvUnkbg4jozzmxGPzX8OvbfM7z5G_7YGWFR6ocFsMq9x2k4hnYRoHy7WeVMxXoWYQtRM5olxTckd1r2ftaqbw
+* Link to "extracted_data_W#.pkl" files: https://zenodo.org/records/11123884?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImE5NDhhNzhkLWZlYjktNDE0Ny04MzM3LTQ1NTk1MWI5MjczMCIsImRhdGEiOnt9LCJyYW5kb20iOiI0NmY5NDBhMWZmMDljODZlZjNmM2QzODNkZGYwZmJiOSJ9.tGvUnkbg4jozzmxGPzX8OvbfM7z5G_7YGWFR6ocFsMq9x2k4hnYRoHy7WeVMxXoWYQtRM5olxTckd1r2ftaqbw
 * Variant data is from ClinVar data downloaded from (https://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz)
 

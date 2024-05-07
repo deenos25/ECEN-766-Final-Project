@@ -28,7 +28,7 @@ amino_acid_to_index = {
 
 labels_str = {'Benign': 0, 'Pathogenic': 1}
 
-data_df = pd.read_pickle('extracted_data_W31.pkl')
+data_df = pd.read_pickle('extracted_data_W11_v2.pkl')
 real_acids = data_df['real_acid'].to_numpy()
 var_acids = data_df['variant_acid'].to_numpy()
 
@@ -52,10 +52,11 @@ for real_acid, var_acid in zip(real_acids, var_acids):
 ohe_real_acid_arr = np.array(one_hot_encoded_real)
 ohe_var_acid_arr = np.array(one_hot_encoded_var)
 # Contains OHE of real & variant acid, esm1b score, secondary structure frac., and LLRs of variant location
+struct_llr = np.subtract(np.vstack([arr for arr in data_df['pred_2nd_struct_arr_wt'].to_numpy()]), np.vstack([arr for arr in data_df['pred_2nd_struct_arr_v'].to_numpy()]))
 model_feature_arr = np.concatenate([ohe_real_acid_arr,
                                     ohe_var_acid_arr,
                                     data_df['esm1b_score'].to_numpy().reshape(-1, 1),
-                                    np.vstack([arr for arr in data_df['pred_2nd_struct_arr'].to_numpy()])], axis=-1)
+                                    struct_llr], axis=-1)
 
 scaler = MinMaxScaler()
 scaled_model_feature_arr = scaler.fit_transform(model_feature_arr)
@@ -74,7 +75,7 @@ scaled_model_feature_arr, seq_arr = scaled_model_feature_arr[ind], seq_arr[ind]
 from sklearn.model_selection import KFold
 kf = KFold(n_splits=10, shuffle=True)
 results = []
-for i, (train_index, test_index) in enumerate(kf.split(scaled_model_feature_arr)):
+for i, (train_index, test_index) in enumerate(kf.split(scaled_model_feature_arr[:,:-3])):
     input_layer = keras.layers.Input(shape=(44,))
     seq_embedding_input = keras.layers.Input(shape=(np.shape(data_df['seq_arr'].to_numpy()[0])[0],))
     seq_embedding = keras.layers.Embedding(20, 1, input_length=np.shape(data_df['seq_arr'].to_numpy()[0])[0])(

@@ -4,9 +4,11 @@ from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib
+
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 sns.set_context('talk')
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
@@ -72,10 +74,11 @@ ind = np.where(np.logical_or(data_df['label'].to_numpy() == 'Benign', data_df['l
 scaled_model_feature_arr, seq_arr = scaled_model_feature_arr[ind], seq_arr[ind]
 
 from sklearn.model_selection import KFold
+
 kf = KFold(n_splits=10, shuffle=True)
 results = []
-for i, (train_index, test_index) in enumerate(kf.split(scaled_model_feature_arr)):
-    input_layer = keras.layers.Input(shape=(44,))
+for i, (train_index, test_index) in enumerate(kf.split(scaled_model_feature_arr[:, :-3])):
+    input_layer = keras.layers.Input(shape=(41,))
     seq_embedding_input = keras.layers.Input(shape=(np.shape(data_df['seq_arr'].to_numpy()[0])[0],))
     seq_embedding = keras.layers.Embedding(20, 1, input_length=np.shape(data_df['seq_arr'].to_numpy()[0])[0])(
         seq_embedding_input)
@@ -89,8 +92,9 @@ for i, (train_index, test_index) in enumerate(kf.split(scaled_model_feature_arr)
     model_v1 = keras.models.Model(inputs=[input_layer, seq_embedding_input], outputs=output_layer)
     model_v1.compile(optimizer=keras.optimizers.Adam(lr=0.0005), loss='categorical_crossentropy',
                      metrics=['accuracy', tf.keras.metrics.AUC()])
-    history = model_v1.fit([scaled_model_feature_arr[train_index], seq_arr[train_index]], ohe_labels[train_index],
-                     batch_size=256, epochs=16, verbose=0)
-    results.append(model_v1.evaluate([scaled_model_feature_arr[test_index], seq_arr[test_index]], ohe_labels[test_index]))
+    history = model_v1.fit([scaled_model_feature_arr[train_index, :-3], seq_arr[train_index]], ohe_labels[train_index],
+                           batch_size=256, epochs=16, verbose=0)
+    results.append(
+        model_v1.evaluate([scaled_model_feature_arr[test_index, :-3], seq_arr[test_index]], ohe_labels[test_index]))
 results = np.array(results)
 print('Mean & std of AUC', np.mean(results[:, 2]), np.std(results[:, 2]))
